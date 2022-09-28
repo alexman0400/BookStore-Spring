@@ -1,0 +1,5 @@
+
+B
+bookstore/mvnw.cmd,8\3\83cd65ba2c999888bf454131f70632e9a32680c5
+A
+bookstore/pom.xml,3\4\34231fa89124a541a1c30999b823b2bed5c33286
