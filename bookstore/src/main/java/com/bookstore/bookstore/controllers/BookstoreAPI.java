@@ -39,10 +39,9 @@ public class BookstoreAPI {
         BookStoreService.removeBook(id);
     }
 
-    @RequestMapping(method=RequestMethod.PATCH, value="/updateBook/{id}")
-    public void updateBook(@PathVariable int id, @RequestBody Book book){
-        System.out.println(id);
-        BookStoreService.updateBook(id, book);
+    @RequestMapping(method=RequestMethod.PATCH, value="/updateBook")
+    public void updateBook(@RequestBody Book book){
+        BookStoreService.updateBook(book);
     }
 
 

@@ -3,10 +3,7 @@ package com.bookstore.bookstore.services;
 import com.bookstore.bookstore.entities.Book;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Service
@@ -22,31 +19,27 @@ public class BookstoreService {
     }
 
     public Book getBook(int id){
-        return bookList.stream().filter(t -> t.getId()  == id).findFirst().get();
+        try {
+            return bookList.stream().filter(t -> t.getId()  == id).findFirst().get();
+        }
+        catch(NoSuchElementException e){
+            System.out.println("No such Book element found");
+        }
+        return null;
     }
 
     public void addNewBook(Book newBook) {
         bookList.add(newBook);
     }
 
-    public int removeBook(int id) {
-        Optional<Book> b = Optional.ofNullable(bookList.stream().filter(t -> t.getId()  == id).findFirst().get());
-        if(!b.isEmpty()){
-            bookList.remove(bookList.stream().filter(t -> t.getId()  == id).findFirst().get());
-            return 0;
-        }
-
-        return -1;
+    public void removeBook(int id) {
+        Book b = getBook(id);
+        if(b != null)
+            bookList.remove(b);
     }
 
-    public int updateBook(int id, Book updatedVersion) {
-        Optional<Book> b = Optional.ofNullable(bookList.stream().filter(t -> t.getId()  == id).findFirst().get());
-        if(!b.isEmpty()){
-            bookList.remove(bookList.stream().filter(t -> t.getId()  == id).findFirst().get());
-            bookList.add(updatedVersion);
-            return 0;
-        }
-
-        return -1;
+    public void updateBook(Book updatedVersion) {
+        removeBook(updatedVersion.getId());
+        bookList.add(updatedVersion);
     }
 }
